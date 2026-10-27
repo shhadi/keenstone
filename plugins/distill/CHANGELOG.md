@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Plugin icon (`.claude-plugin/icon.png`): rows of sources narrowing to one amber drop
+
 ## 0.3.0
 
 Parallel mode: when the assistant can spawn subagents (Claude Code, Cowork, Claude with agent
