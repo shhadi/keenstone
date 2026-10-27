@@ -1,0 +1,15 @@
+{
+  "name": "keenstone",
+  "description": "Open-source skills that make your AI sharper.",
+  "owner": {
+    "name": "shhadi",
+    "url": "https://github.com/shhadi"
+  },
+  "plugins": [
+    {
+      "name": "consensus-distillation",
+      "source": "./plugins/consensus-distillation",
+      "description": "Find what the top 10 experts on any problem agree on, ranked into actionable rules and root principles."
+    }
+  ]
+}
