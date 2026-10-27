@@ -49,9 +49,21 @@ plugins/<name>/                   One plugin per skill
   .claude-plugin/plugin.json      Plugin manifest
   skills/<name>/SKILL.md          The skill itself, in the open Agent Skills format
   README.md, CHANGELOG.md
+.github/workflows/                Website deploy and automatic releases
 ```
 
 Every change lands through a pull request, so the history of each skill stays readable.
+
+## Releases
+
+Each skill is versioned on its own, with tags named `<skill>--v<version>` (for example
+`distill--v0.3.0`). To release a new version, change two things in the same pull request:
+
+1. Bump `version` in `plugins/<skill>/.claude-plugin/plugin.json`.
+2. Rename the `## Unreleased` heading in that skill's `CHANGELOG.md` to the new version.
+
+When the pull request is merged, the **Release skills** workflow creates the tag and a GitHub
+release, using that changelog section as the release notes.
 
 ## Credits
 

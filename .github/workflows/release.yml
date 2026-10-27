@@ -1,0 +1,29 @@
+# Releases each skill automatically when its version changes on main.
+# To release: in the same pull request, bump "version" in plugins/<name>/.claude-plugin/plugin.json
+# and rename the plugin's "## Unreleased" changelog heading to that version. Merging does the rest.
+name: Release skills
+
+on:
+  push:
+    branches: [main]
+    paths: ["plugins/*/.claude-plugin/plugin.json"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Release new skill versions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash .github/scripts/release-skills.sh
