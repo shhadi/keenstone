@@ -21,6 +21,11 @@ email marketing, public speaking, sleep, negotiation, learning a language.
 
 You finish with an action plan: three rules to start this week and a 14-day review.
 
+**Parallel mode.** Where your assistant can spawn subagents (Claude Code, Cowork, or Claude with
+agent tools), Distill gives each source its own subagent and extracts all the rules in one round
+instead of ten passes in a row. An optional independent reviewer checks the consensus table
+before you see it. Elsewhere, it runs the same steps in order, with the same output.
+
 ## Install
 
 In Claude Code:
@@ -45,7 +50,9 @@ The skill asks up to three short questions about your context, then answers in F
 ## What it runs and sends
 
 Nothing. The skill is a single instruction file with no scripts, hooks or servers. If your
-assistant has web search enabled, the skill asks it to verify that each source exists.
+assistant has web search enabled, the skill asks it to verify that each source exists. In
+parallel mode it asks your assistant to start subagents of its own, which use more tokens in
+exchange for speed.
 
 ## Credits
 

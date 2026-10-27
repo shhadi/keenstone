@@ -1,7 +1,7 @@
 {
   "name": "distill",
   "displayName": "Distill",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "10 experts. 100 rules. Only what they agree on. Distill finds what the leading experts on any problem agree on and turns it into ranked rules, root principles and an action plan.",
   "author": {
     "name": "shhadi",
@@ -10,5 +10,12 @@
   "homepage": "https://github.com/shhadi/keenstone/tree/main/plugins/distill",
   "repository": "https://github.com/shhadi/keenstone",
   "license": "MIT",
-  "keywords": ["distill", "expert-consensus", "problem-solving", "research", "learning", "productivity"]
+  "keywords": [
+    "distill",
+    "expert-consensus",
+    "problem-solving",
+    "research",
+    "learning",
+    "productivity"
+  ]
 }
