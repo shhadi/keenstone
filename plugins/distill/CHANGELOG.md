@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Plugin icon (`.claude-plugin/icon.png`): rows of sources narrowing to one amber drop
+- Plugin icon: rows of sources narrowing to one amber drop
 
 ## 0.3.0
 
