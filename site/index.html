@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Distill by Keenstone: expert consensus for your AI</title>
+<meta name="description" content="10 experts. 100 rules. Only what they agree on. Distill is a free, open-source skill that makes your AI find what the top experts on any problem agree on.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Distill: 10 experts. 100 rules. Only what they agree on.">
+<meta property="og:description" content="A free, open-source skill that makes your AI find what the top 10 experts on any problem agree on. Works with Claude, Codex, Cursor and more.">
+<meta property="og:url" content="https://shhadi.github.io/keenstone/">
+<meta property="og:image" content="https://shhadi.github.io/keenstone/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#E5E8E3">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --stone: #E5E8E3;
+  --honed: #F4F5F1;
+  --slate: #1E2A31;
+  --grit: #58666C;
+  --essence: #B8791C;
+  --mid: #3B484F;
+  --faint: rgba(30, 42, 49, 0.16);
+  --hair: rgba(30, 42, 49, 0.14);
+  --gutter: 24px;
+  --measure: 34rem;
+  --dot: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stone: #172026;
+    --honed: #1F2a31;
+    --slate: #E5E8E3;
+    --grit: #9AA6AA;
+    --essence: #DDA54A;
+    --mid: #C3CBCD;
+    --faint: rgba(229, 232, 227, 0.16);
+    --hair: rgba(229, 232, 227, 0.14);
+  }
+}
+:root[data-theme="dark"] {
+  --stone: #172026;
+  --honed: #1F2a31;
+  --slate: #E5E8E3;
+  --grit: #9AA6AA;
+  --essence: #DDA54A;
+  --mid: #C3CBCD;
+  --faint: rgba(229, 232, 227, 0.16);
+  --hair: rgba(229, 232, 227, 0.14);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--stone);
+  color: var(--slate);
+  font-family: "Archivo", system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  font-stretch: 100%;
+}
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--essence); outline-offset: 3px; border-radius: 4px; }
+code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.875rem; }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--gutter); }
+
+/* Top bar */
+.bar { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 650; font-stretch: 112%; letter-spacing: 0.01em; }
+.brand svg { width: 26px; height: 26px; }
+.bar nav a { font-weight: 500; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; padding: 40px 0 88px; align-items: center; }
+@media (min-width: 980px) {
+  .hero { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 64px; padding: 64px 0 112px; }
+}
+h1 { margin: 0; font-size: clamp(2.5rem, 5.6vw, 4.5rem); line-height: 1.02; letter-spacing: -0.012em; font-weight: 400; }
+h1 span { display: block; }
+h1 .dilute { font-stretch: 125%; font-weight: 220; color: var(--grit); }
+h1 .reduce { font-stretch: 100%; font-weight: 430; color: var(--mid); }
+h1 .essence { font-stretch: 72%; font-weight: 820; color: var(--slate); margin-top: 0.06em; }
+.lede { margin: 28px 0 0; max-width: var(--measure); font-size: 1.1875rem; color: var(--mid); }
+
+.cmd { margin-top: 32px; display: flex; align-items: stretch; max-width: 36rem; border: 1px solid var(--hair); border-radius: 8px; background: var(--honed); }
+.cmd code { flex: 1; min-width: 0; padding: 13px 16px; font-size: 0.8125rem; line-height: 1.5; white-space: normal; overflow-wrap: break-word; }
+.cmd .nb { white-space: nowrap; }
+.copy {
+  flex: none; border: 0; border-left: 1px solid var(--hair); background: transparent; color: var(--slate);
+  font: inherit; font-size: 0.9375rem; font-weight: 600; padding: 0 14px; cursor: pointer; border-radius: 0 8px 8px 0;
+}
+.copy:hover { background: var(--faint); }
+.hero-links { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 0.9375rem; color: var(--grit); }
+
+/* Consensus matrix */
+.matrix { position: relative; margin: 0; }
+.m-grid { list-style: none; margin: 0; padding: 0; }
+.m-row, .m-head {
+  display: grid; grid-template-columns: minmax(0, 1fr) repeat(10, var(--dot)) 3.2rem;
+  column-gap: 7px; align-items: center; min-height: 30px;
+}
+.m-head { min-height: 22px; color: var(--grit); font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+.m-head span { text-align: center; }
+.m-head .m-src { text-align: left; }
+.m-row + .m-row { border-top: 1px solid var(--hair); }
+.rule { font-size: 0.9375rem; line-height: 1.25; padding: 6px 12px 6px 0; }
+.score { text-align: right; font-variant-numeric: tabular-nums; font-size: 0.875rem; font-weight: 600; }
+.dot { width: var(--dot); height: var(--dot); border-radius: 50%; background: var(--faint); justify-self: center; }
+.dot.on { background: var(--slate); }
+.tier-core .dot.on { background: var(--essence); }
+.tier-supported .dot.on { background: var(--grit); }
+.tier-none .dot.on { background: var(--grit); opacity: 0.45; }
+.tier-none .rule, .tier-none .score { color: var(--grit); }
+.tier-core .rule { font-weight: 650; }
+.matrix figcaption { margin-top: 18px; font-size: 0.875rem; color: var(--grit); max-width: 32rem; }
+.legend-swatch { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--essence); margin: 0 4px 0 1px; vertical-align: 0.05em; }
+
+/* Load sequence: 100 rules scatter, then settle into the ranked grid */
+.matrix.js .extra { position: absolute; width: var(--dot); height: var(--dot); border-radius: 50%; background: var(--grit); opacity: 0.55; pointer-events: none; }
+.matrix.scatter .rule, .matrix.scatter .score, .matrix.scatter .m-head, .matrix.scatter .dot:not(.on), .matrix.scatter figcaption { opacity: 0; }
+.matrix.scatter .m-row + .m-row { border-top-color: transparent; }
+.matrix.scatter .dot.on { background: var(--grit); }
+.matrix.settling .dot.on { transition: transform 1.15s cubic-bezier(.2, .75, .15, 1); }
+.matrix.settling .extra { transition: opacity .8s ease, transform .9s ease; opacity: 0; transform: scale(.3); }
+.matrix.settled .rule, .matrix.settled .score, .matrix.settled .m-head, .matrix.settled .dot:not(.on), .matrix.settled figcaption { transition: opacity .45s ease; }
+.matrix.settled .dot.on { transition: background-color .5s ease; }
+.matrix.settled .m-row + .m-row { transition: border-color .45s ease; }
+
+/* Sections */
+section { padding: 72px 0; border-top: 1px solid var(--hair); }
+h2 { margin: 0 0 32px; font-size: clamp(1.75rem, 3.2vw, 2.5rem); line-height: 1.1; font-weight: 750; font-stretch: 88%; letter-spacing: -0.005em; }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
+@media (min-width: 900px) { .cols { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 64px; } }
+.intro { margin: 0; max-width: var(--measure); color: var(--mid); }
+
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+.steps li { counter-increment: step; display: grid; grid-template-columns: 3rem minmax(0, 1fr); padding: 18px 0; border-top: 1px solid var(--hair); }
+.steps li:last-child { border-bottom: 1px solid var(--hair); }
+.steps li::before { content: counter(step); font-size: 1.5rem; font-weight: 300; font-stretch: 125%; color: var(--grit); line-height: 1.2; }
+.steps h3 { margin: 0; font-size: 1.125rem; font-weight: 680; }
+.steps p { margin: 4px 0 0; max-width: var(--measure); color: var(--mid); }
+.after { margin: 24px 0 0; max-width: var(--measure); }
+
+.install { margin: 0; }
+.install > div { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px 32px; padding: 22px 0; border-top: 1px solid var(--hair); }
+.install > div:last-child { border-bottom: 1px solid var(--hair); }
+@media (min-width: 900px) { .install > div { grid-template-columns: 15rem minmax(0, 1fr); } }
+.install dt { font-weight: 680; }
+.install dd { margin: 0; color: var(--mid); }
+.install .cmd { margin-top: 0; max-width: none; }
+.install .cmd + .cmd { margin-top: 8px; }
+
+.origin p { margin: 0; max-width: var(--measure); color: var(--mid); }
+.origin p + p { margin-top: 14px; }
+
+footer { padding: 40px 0 56px; border-top: 1px solid var(--hair); color: var(--grit); font-size: 0.9375rem; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; }
+footer p { margin: 0; }
+
+@media (max-width: 520px) {
+  :root { --gutter: 16px; --dot: 9px; }
+  .m-row, .m-head { column-gap: 5px; grid-template-columns: minmax(0, 1fr) repeat(10, var(--dot)) 2.6rem; }
+  .rule { font-size: 0.8125rem; }
+  .score { font-size: 0.8125rem; }
+  section { padding: 56px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .matrix .dot, .matrix .rule, .matrix .score, .matrix .extra { transition: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="bar">
+    <a class="brand" href="./" aria-label="Keenstone home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="9" width="26" height="14" rx="3" style="fill: var(--grit)"/><path d="M3 16h26v4a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z" style="fill: var(--slate)"/></svg>
+      Keenstone
+    </a>
+    <nav><a href="https://github.com/shhadi/keenstone">GitHub</a></nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div>
+        <h1>
+          <span class="dilute">10 experts.</span>
+          <span class="reduce">100 rules.</span>
+          <span class="essence">Only what they agree on.</span>
+        </h1>
+        <p class="lede">Distill is a free, open-source skill that makes your AI find what the leading experts on any problem agree on, then turns it into ranked rules, the principles behind them, and a plan for your situation.</p>
+        <div class="cmd">
+          <code id="cmd-hero">/plugin install distill <span class="nb">--marketplace</span> shhadi/keenstone</code>
+          <button class="copy" type="button" data-copy="cmd-hero">Copy</button>
+        </div>
+        <div class="hero-links">
+          <a href="#install">Install in Claude, Codex, Cursor or ChatGPT</a>
+          <a href="https://github.com/shhadi/keenstone">Star on GitHub</a>
+        </div>
+      </div>
+
+      <figure class="matrix" id="matrix" aria-label="Example consensus matrix: twelve rules about procrastination, ranked by how many of ten sources recommend each one.">
+        <div class="m-head" aria-hidden="true">
+          <span class="m-src">Sources</span>
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+          <span></span>
+        </div>
+        <ol class="m-grid" id="m-grid"></ol>
+        <figcaption>Illustrative example for procrastination. Each filled dot is a source that recommends the rule. <span class="legend-swatch" aria-hidden="true"></span>Amber rows are core consensus: 7 or more of 10 sources agree.</figcaption>
+      </figure>
+    </div>
+
+    <section aria-labelledby="how">
+      <div class="cols">
+        <div>
+          <h2 id="how">How Distill works</h2>
+          <p class="intro">Any single expert has blind spots. A rule that independent experts reach again and again is far more likely to hold up. Distill finds those rules, then digs out the principles underneath so you can adapt them instead of memorizing them.</p>
+        </div>
+        <div>
+          <ol class="steps">
+            <li><div><h3>Frame the problem</h3><p>Restate it in one precise sentence and name the fields that study it.</p></div></li>
+            <li><div><h3>Map the canon</h3><p>Pick the 10 most authoritative sources, deliberately from different schools of thought.</p></div></li>
+            <li><div><h3>Extract the rules</h3><p>Pull about 10 actionable rules from each source, around 100 in total.</p></div></li>
+            <li><div><h3>Score the consensus</h3><p>Merge duplicates, count how many sources back each rule, and rank them. Disagreements are listed, not hidden.</p></div></li>
+            <li><div><h3>Find the roots</h3><p>Turn the top rules into steps for your situation, extract the 3 to 7 principles behind them, and build a technique of your own.</p></div></li>
+          </ol>
+          <p class="after">You finish with three rules to start this week and a check-in after 14 days. In Claude Code and Cowork, each source gets its own subagent, so the rules are extracted in one round.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="install" aria-labelledby="install-h">
+      <h2 id="install-h">Install</h2>
+      <dl class="install">
+        <div>
+          <dt>Claude Code</dt>
+          <dd>
+            <div class="cmd"><code id="cmd-cc">/plugin install distill <span class="nb">--marketplace</span> shhadi/keenstone</code><button class="copy" type="button" data-copy="cmd-cc">Copy</button></div>
+          </dd>
+        </div>
+        <div>
+          <dt>Claude on the web and desktop</dt>
+          <dd>In Customize, open Plugins, add the GitHub marketplace <code>shhadi/keenstone</code>, then install Distill.</dd>
+        </div>
+        <div>
+          <dt>Codex, Cursor, Gemini CLI and other agents</dt>
+          <dd>
+            <div class="cmd"><code id="cmd-npx">npx skills add shhadi/keenstone <span class="nb">--skill distill</span></code><button class="copy" type="button" data-copy="cmd-npx">Copy</button></div>
+          </dd>
+        </div>
+        <div>
+          <dt>ChatGPT, Gemini and other chat AIs</dt>
+          <dd>Copy <a href="https://github.com/shhadi/keenstone/blob/main/plugins/distill/skills/distill/SKILL.md">SKILL.md</a> into a Custom GPT, a Gem, or your project's instructions, then describe your problem.</dd>
+        </div>
+      </dl>
+      <p class="after">Then ask in plain words: “Distill procrastination. I work full-time and only have evenings.”</p>
+    </section>
+
+    <section class="origin" aria-labelledby="origin-h">
+      <div class="cols">
+        <h2 id="origin-h">Where Distill comes from</h2>
+        <div>
+          <p>Distill grows out of an idea from one of <a href="https://github.com/AbdelkarimBenMohamadi">Abdelkarim Ben Mohamadi</a>'s videos: to beat procrastination, read the 10 strongest books on it, extract their rules, keep the ones they share, and go back to the principles they grow from.</p>
+          <p>Distill applies the same five steps to any problem or skill, and adds safeguards so your AI doesn't invent sources along the way.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Keenstone: open-source skills that make your AI sharper. Distill is the first.</p>
+    <p><a href="https://github.com/shhadi/keenstone">GitHub</a>&ensp;<a href="https://github.com/shhadi/keenstone/blob/main/LICENSE">MIT license</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Illustrative consensus for procrastination: [rule, sources that recommend it (of 10)]
+  var rules = [
+    ["Shrink the first step until it is too easy to refuse", 9],
+    ["Decide the very next physical action", 8],
+    ["Work in short, timed sessions", 8],
+    ["Remove the cue for your main distraction", 7],
+    ["Forgive yourself for past delays", 6],
+    ["Tie the task to something you value", 5],
+    ["Separate drafting from editing", 4],
+    ["Tell someone your deadline", 4],
+    ["Reward yourself after the work, not before", 3],
+    ["Plan tomorrow the night before", 2],
+    ["Wake up at 5 a.m.", 1],
+    ["Use a paper planner", 1]
+  ];
+  function tier(n) { return n >= 7 ? "core" : n >= 5 ? "strong" : n >= 3 ? "supported" : "none"; }
+  // Small seeded generator so the pattern is the same on every visit
+  var seed = 7;
+  function rand() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+  function pick(k) {
+    var cols = [0,1,2,3,4,5,6,7,8,9];
+    for (var i = cols.length - 1; i > 0; i--) { var j = Math.floor(rand() * (i + 1)); var t = cols[i]; cols[i] = cols[j]; cols[j] = t; }
+    return cols.slice(0, k);
+  }
+
+  var grid = document.getElementById("m-grid");
+  rules.forEach(function (r) {
+    var li = document.createElement("li");
+    li.className = "m-row tier-" + tier(r[1]);
+    var on = pick(r[1]);
+    var html = '<span class="rule">' + r[0] + '</span>';
+    for (var c = 0; c < 10; c++) html += '<span class="dot' + (on.indexOf(c) > -1 ? ' on' : '') + '" aria-hidden="true"></span>';
+    html += '<span class="score">' + r[1] + '/10</span>';
+    li.innerHTML = html;
+    grid.appendChild(li);
+  });
+
+  // Copy buttons
+  document.querySelectorAll(".copy").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var text = document.getElementById(b.getAttribute("data-copy")).textContent;
+      var done = function () { b.textContent = "Copied"; setTimeout(function () { b.textContent = "Copy"; }, 1600); };
+      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () {});
+    });
+  });
+
+  // One load sequence: 100 scattered rules settle into the ranked grid
+  var fig = document.getElementById("matrix");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce || !("requestAnimationFrame" in window)) return;
+
+  function run() {
+    var box = fig.getBoundingClientRect();
+    if (box.width < 10) return;
+    fig.classList.add("js", "scatter");
+    var dots = Array.prototype.slice.call(fig.querySelectorAll(".dot.on"));
+    var size = dots[0] ? dots[0].getBoundingClientRect().width : 12;
+    var extras = [];
+    for (var e = 0; e < 100 - dots.length; e++) {
+      var x = document.createElement("span");
+      x.className = "extra";
+      x.style.left = (Math.random() * (box.width - size)) + "px";
+      x.style.top = (Math.random() * (box.height - size)) + "px";
+      fig.appendChild(x);
+      extras.push(x);
+    }
+    dots.forEach(function (d) {
+      var r = d.getBoundingClientRect();
+      var tx = Math.random() * (box.width - size) - (r.left - box.left);
+      var ty = Math.random() * (box.height - size) - (r.top - box.top);
+      d.style.transform = "translate(" + tx + "px," + ty + "px)";
+    });
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        setTimeout(function () {
+          fig.classList.add("settling");
+          dots.forEach(function (d, i) {
+            d.style.transitionDelay = (Math.random() * 260) + "ms";
+            d.style.transform = "";
+          });
+          setTimeout(function () {
+            fig.classList.add("settled");
+            fig.classList.remove("scatter");
+            setTimeout(function () { extras.forEach(function (x) { x.remove(); }); }, 900);
+          }, 1350);
+        }, 450);
+      });
+    });
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(run); else window.addEventListener("load", run);
+})();
+</script>
+</body>
+</html>
