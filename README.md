@@ -2,6 +2,10 @@
 
 **Open-source skills that make your AI sharper.**
 
+[Website](https://shhadi.github.io/keenstone/) · [Distill](plugins/distill) · [Install](#install)
+
+![10 experts. 100 rules. Only what they agree on.](site/og.png)
+
 Keenstone is a collection of [Agent Skills](https://agentskills.io): plain-Markdown instruction packs
 that teach an AI assistant a proven way to do something well. Each skill works in Claude
 (web, desktop, Cowork and Claude Code) and in any tool that supports the open `SKILL.md`
@@ -40,6 +44,7 @@ custom instructions (a Custom GPT, a Gem, or a project's instructions), then des
 
 ```
 .claude-plugin/marketplace.json   Catalog of every skill in this repo (Claude plugin marketplace)
+site/                             The website, published to GitHub Pages
 plugins/<name>/                   One plugin per skill
   .claude-plugin/plugin.json      Plugin manifest
   skills/<name>/SKILL.md          The skill itself, in the open Agent Skills format
