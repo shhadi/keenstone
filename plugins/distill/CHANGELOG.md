@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.3.0
+
+Parallel mode: when the assistant can spawn subagents (Claude Code, Cowork, Claude with agent
+tools), rule extraction runs as one round instead of ten passes in a row.
+
+- One extraction subagent per source, all launched at once, each with a self-contained brief and
+  a fixed return format, so results merge cleanly
+- The orchestrator keeps framing, source selection, consensus scoring and principles, which need
+  a single view of all the rules
+- Optional scouts for picking sources in niche domains, and an optional independent reviewer that
+  checks the consensus table before delivery
+- Failed or unverified subagent results are handled without stalling the run
+- Tools without subagents run the same steps in order, with the same output
+
 ## 0.2.0
 
 Renamed from Consensus Distillation to **Distill**: shorter, easier to remember, and easy to use

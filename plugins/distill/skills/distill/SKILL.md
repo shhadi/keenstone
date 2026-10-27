@@ -49,7 +49,74 @@ State which mode you're using in one line.
 
 ---
 
-## 3. The Workflow
+## 3. Run it in parallel when you can
+
+Step 2 is the longest part of the algorithm, and it splits cleanly by source. So when you
+have a tool for spawning subagents (an Agent or Task tool, for example), fan it out. If you
+don't have one, run every step yourself in order. The output is the same, only slower.
+
+| Step | Who runs it | Why |
+|---|---|---|
+| 0-1 Frame + canon | You (orchestrator) | Choosing a diverse canon needs a single view of the whole field |
+| 2 Rule extraction | One subagent per source, all launched at once | Sources are independent, so 10 sequential passes become one round |
+| 3-5 Consensus, practice, principles | You | Merging rules and finding principles needs every rule side by side; splitting this work produces inconsistent clusters |
+| Check (optional) | One fresh reviewer subagent | An agent that didn't build the table catches errors its builder misses |
+
+### Fan-out rules
+- Launch all extraction subagents in a single message so they run concurrently. If the
+  platform limits concurrency, launch in batches (e.g., 5 + 5).
+- Subagents don't see this conversation. Give each one a self-contained brief (template
+  below) with everything it needs.
+- If the platform lets you choose models, a faster model is fine for extraction. Keep the
+  strongest model for Steps 3-5, where the judgment happens.
+- Wait for every result before starting Step 3. Never guess or fill in a pending
+  subagent's result.
+- If a subagent fails, returns nothing usable, or reports `VERIFIED: no`, extract that
+  source yourself, or drop it and say so in Step 1. One failure should not stall the run.
+- For an unfamiliar or niche domain, you can parallelize Step 1 too: spawn 2-3 scouts,
+  each proposing candidate sources from a different angle (academic research,
+  practitioner bestsellers, alternative or contrarian schools). Then pick the final
+  canon yourself.
+
+### Extraction brief (one per source, filled in)
+
+```
+You are extracting actionable rules from ONE source for a consensus analysis.
+
+Problem: [the problem, in one sentence]
+User context: [2-3 lines]
+Your source: [#] [Title] - [Author] ([Year])
+
+Task:
+1. If you have web search, verify the source exists and look up its main techniques
+   (summaries, author interviews, reviews). Paraphrase; never copy long passages.
+2. Extract up to 10 actionable rules this source actually argues for, most important first.
+   - Each rule is one imperative instruction with one action.
+     Weak: "Motivation matters."
+     Strong: "Start with a version of the task you can finish in 5 minutes."
+   - Fidelity over count: if you only know the source's general thesis, return fewer
+     rules and mark them "general". Never invent techniques, quotes, or statistics.
+3. Return EXACTLY this format and nothing else:
+
+SOURCE: [#] Title - Author (Year)
+VERIFIED: yes | partial | no - [how, one line]
+CORE THESIS: [one line]
+RULES:
+1. [rule] | mechanism: [why it works, max 12 words] | confidence: high | medium | general
+2. ...
+UNIQUE INSIGHT: [the one idea this source stresses that most others may not, or "none"]
+```
+
+### Independent check (recommended in Full mode)
+Once the Step 3 table is ready, spawn one reviewer subagent. Give it the source list, the
+raw rule lists, and the consensus table, but not your reasoning. Ask it to flag:
+miscounted consensus scores, rules credited to a source whose list doesn't contain them,
+and merges that combined rules with different mechanisms. You can draft Steps 4-5 while it
+runs; apply its corrections before delivering.
+
+---
+
+## 4. The Workflow
 
 ### Step 0 - Frame the problem
 - Restate the problem precisely in one sentence.
@@ -129,7 +196,7 @@ This step is what separates understanding from memorization - give it real thoug
 
 ---
 
-## 4. Output template
+## 5. Output template
 
 Use these headings, in this order:
 
@@ -152,7 +219,7 @@ Mode: [Full / Quick] | Assumptions: [if any]
 
 ---
 
-## 5. Quality standards
+## 6. Quality standards
 
 - **Accuracy over completeness.** Never invent books, authors, quotes, or statistics.
   If you're unsure a source makes a specific claim, mark it `[unverified]`. A smaller
@@ -167,7 +234,7 @@ Mode: [Full / Quick] | Assumptions: [if any]
 
 ---
 
-## 6. Example (calibration)
+## 7. Example (calibration)
 
 **User:** "I keep procrastinating on my thesis. I work full-time and only have evenings."
 
