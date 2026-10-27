@@ -1,0 +1,10 @@
+# OS files (Anthropic's plugin directory rejects these inside a plugin folder)
+.DS_Store
+Thumbs.db
+desktop.ini
+__MACOSX/
+
+# Build output and packaged zips
+*.zip
+node_modules/
+dist/
