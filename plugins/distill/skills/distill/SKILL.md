@@ -1,13 +1,15 @@
 ---
-name: consensus-distillation
-description: Solve any problem or master any skill by distilling expert consensus - map the top 10 sources, extract ~100 rules, rank them by agreement, turn the strongest into actions, and derive the root principles behind them. Use whenever someone wants the proven best way to fix a problem or improve at something, asks what experts or the best books agree on, or mentions the Five-Step Algorithm.
+name: distill
+description: Solve any problem or master any skill by distilling expert consensus - map the top 10 sources, extract ~100 rules, rank them by agreement, turn the strongest into actions, and derive the root principles behind them. Use whenever someone wants the proven best way to fix a problem or improve at something, asks what experts or the best books agree on, says "distill" a topic, or mentions the Five-Step Algorithm.
 ---
 
-# Consensus Distillation (The Five-Step Algorithm)
+# Distill
+
+*Distill 10 experts into the rules that work.*
 
 Turn the collective knowledge of the leading experts on any problem into a ranked set of
 actionable rules, the root principles that generate them, and a custom technique built for
-the user's situation.
+the user's situation. (Also known as the Five-Step Algorithm.)
 
 **Why this works:** any single expert has blind spots and personal biases. A rule that
 independent experts arrive at again and again is far more likely to be robust. But rules
@@ -132,7 +134,7 @@ This step is what separates understanding from memorization - give it real thoug
 Use these headings, in this order:
 
 ```
-# [Problem] - Consensus Distillation
+# Distill: [Problem]
 Mode: [Full / Quick] | Assumptions: [if any]
 
 ## Step 0 - Problem Frame

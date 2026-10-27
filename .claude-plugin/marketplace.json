@@ -7,9 +7,9 @@
   },
   "plugins": [
     {
-      "name": "consensus-distillation",
-      "source": "./plugins/consensus-distillation",
-      "description": "Find what the top 10 experts on any problem agree on, ranked into actionable rules and root principles."
+      "name": "distill",
+      "source": "./plugins/distill",
+      "description": "10 experts. 100 rules. Only what they agree on. Turns any problem into ranked rules, root principles and an action plan."
     }
   ]
 }
