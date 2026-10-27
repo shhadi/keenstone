@@ -10,7 +10,31 @@ Gemini as custom instructions.
 
 ## Skills
 
-The first skill is on its way.
+| Skill | What it does |
+|---|---|
+| [**Consensus Distillation**](plugins/consensus-distillation) | 10 experts. 100 rules. Only what they agree on. Turns any problem into ranked rules, root principles and an action plan. |
+
+## Install
+
+**Claude Code**
+
+```
+/plugin marketplace add shhadi/keenstone
+/plugin install consensus-distillation@keenstone
+```
+
+**Claude (web and desktop)**: open **Customize → Plugins**, add the GitHub marketplace
+`shhadi/keenstone`, and install the skill from there.
+
+**Codex, Cursor, Gemini CLI and other agents**
+
+```
+npx skills add shhadi/keenstone --skill consensus-distillation
+```
+
+**ChatGPT, Gemini or any other chat AI**: copy the skill's
+[`SKILL.md`](plugins/consensus-distillation/skills/consensus-distillation/SKILL.md) into your
+custom instructions (a Custom GPT, a Gem, or a project's instructions), then describe your problem.
 
 ## Repository layout
 
@@ -23,6 +47,13 @@ plugins/<name>/                   One plugin per skill
 ```
 
 Every change lands through a pull request, so the history of each skill stays readable.
+
+## Credits
+
+Credits are listed per skill.
+
+- **Consensus Distillation** is based on an idea from a video by
+  [Abdelkarim Ben Mohamadi](https://github.com/AbdelkarimBenMohamadi).
 
 ## License
 
