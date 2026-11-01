@@ -3,6 +3,8 @@
 ## Unreleased
 
 - Plugin icon: rows of sources narrowing to one amber drop
+- README: a fallback install for Claude Code older than v2.1.275, a Quick-mode example prompt,
+  and a link to a real run
 
 ## 0.3.0
 

@@ -18,6 +18,11 @@ Gemini as custom instructions.
 |---|---|
 | [**Distill**](plugins/distill) | 10 experts. 100 rules. Only what they agree on. Turns any problem into ranked rules, root principles and an action plan. |
 
+Distill makes your AI show what the top 10 experts on your problem agree on: ranked, sourced, and
+with the disagreements left in, instead of one confident answer from nowhere.
+[See a real run](examples/distill/make-keenstone-popular.md): ten sources on how to make a new
+open-source project popular, run on this repository two days after it went public.
+
 ## Install
 
 **Claude Code**
@@ -40,11 +45,20 @@ npx skills add shhadi/keenstone --skill distill
 [`SKILL.md`](plugins/distill/skills/distill/SKILL.md) into your
 custom instructions (a Custom GPT, a Gem, or a project's instructions), then describe your problem.
 
+**Try it**: for a first result in one reply, ask for Quick mode (5 sources):
+
+```
+Quick distill: cold email for a B2B SaaS
+```
+
+Leave out "Quick" for the full run: 10 sources, delivered in two parts.
+
 ## Repository layout
 
 ```
 .claude-plugin/marketplace.json   Catalog of every skill in this repo (Claude plugin marketplace)
 site/                             The website, published to GitHub Pages
+examples/<name>/                  Real runs of each skill
 plugins/<name>/                   One plugin per skill
   .claude-plugin/plugin.json      Plugin manifest
   skills/<name>/SKILL.md          The skill itself, in the open Agent Skills format

@@ -156,6 +156,7 @@ h2 { margin: 0 0 32px; font-size: clamp(1.75rem, 3.2vw, 2.5rem); line-height: 1.
 .install dd { margin: 0; color: var(--mid); }
 .install .cmd { margin-top: 0; max-width: none; }
 .install .cmd + .cmd { margin-top: 8px; }
+.install .older { margin: 14px 0 8px; font-size: 0.9375rem; }
 
 .origin p { margin: 0; max-width: var(--measure); color: var(--mid); }
 .origin p + p { margin-top: 14px; }
@@ -194,13 +195,14 @@ footer p { margin: 0; }
           <span class="reduce">100 rules.</span>
           <span class="essence">Only what they agree on.</span>
         </h1>
-        <p class="lede">Distill is a free, open-source skill that makes your AI find what the leading experts on any problem agree on, then turns it into ranked rules, the principles behind them, and a plan for your situation.</p>
+        <p class="lede">Distill is a free, open-source skill that makes your AI show what the leading experts on your problem agree on: ranked, sourced, and with the disagreements left in, instead of one confident answer from nowhere. Then it turns that into a plan for your situation.</p>
         <div class="cmd">
           <code id="cmd-hero">/plugin install distill <span class="nb">--marketplace</span> shhadi/keenstone</code>
           <button class="copy" type="button" data-copy="cmd-hero">Copy</button>
         </div>
         <div class="hero-links">
           <a href="#install">Install in Claude, Codex, Cursor or ChatGPT</a>
+          <a href="https://github.com/shhadi/keenstone/blob/main/examples/distill/make-keenstone-popular.md">See a real run</a>
           <a href="https://github.com/shhadi/keenstone">Star on GitHub</a>
         </div>
       </div>
@@ -212,7 +214,7 @@ footer p { margin: 0; }
           <span></span>
         </div>
         <ol class="m-grid" id="m-grid"></ol>
-        <figcaption>Illustrative example for procrastination. Each filled dot is a source that recommends the rule. <span class="legend-swatch" aria-hidden="true"></span>Amber rows are core consensus: 7 or more of 10 sources agree.</figcaption>
+        <figcaption>Illustrative example for procrastination. Each filled dot is a source that recommends the rule. <span class="legend-swatch" aria-hidden="true"></span>Amber rows are core consensus: 7 or more of 10 sources agree. <a href="https://github.com/shhadi/keenstone/blob/main/examples/distill/make-keenstone-popular.md">See a real run</a>.</figcaption>
       </figure>
     </div>
 
@@ -242,6 +244,9 @@ footer p { margin: 0; }
           <dt>Claude Code</dt>
           <dd>
             <div class="cmd"><code id="cmd-cc">/plugin install distill <span class="nb">--marketplace</span> shhadi/keenstone</code><button class="copy" type="button" data-copy="cmd-cc">Copy</button></div>
+            <p class="older">On Claude Code older than v2.1.275, add the marketplace first, then install:</p>
+            <div class="cmd"><code id="cmd-cc-add">/plugin marketplace add shhadi/keenstone</code><button class="copy" type="button" data-copy="cmd-cc-add">Copy</button></div>
+            <div class="cmd"><code id="cmd-cc-install">/plugin install distill@keenstone</code><button class="copy" type="button" data-copy="cmd-cc-install">Copy</button></div>
           </dd>
         </div>
         <div>
@@ -259,7 +264,7 @@ footer p { margin: 0; }
           <dd>Copy <a href="https://github.com/shhadi/keenstone/blob/main/plugins/distill/skills/distill/SKILL.md">SKILL.md</a> into a Custom GPT, a Gem, or your project's instructions, then describe your problem.</dd>
         </div>
       </dl>
-      <p class="after">Then ask in plain words: “Distill procrastination. I work full-time and only have evenings.”</p>
+      <p class="after">Then ask in plain words: “Distill procrastination. I work full-time and only have evenings.” For a first result in one reply, start with “Quick distill:”.</p>
     </section>
 
     <section class="origin" aria-labelledby="origin-h">

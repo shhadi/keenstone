@@ -34,6 +34,13 @@ In Claude Code:
 /plugin install distill --marketplace shhadi/keenstone
 ```
 
+On Claude Code older than v2.1.275, add the marketplace first:
+
+```
+/plugin marketplace add shhadi/keenstone
+/plugin install distill@keenstone
+```
+
 For Claude on the web or desktop, Codex, Cursor, ChatGPT and other tools, see the
 [Keenstone README](https://github.com/shhadi/keenstone#install).
 
@@ -43,9 +50,13 @@ Ask in plain language, for example:
 
 - "Distill procrastination. I work full-time and only have evenings."
 - "What do the best books agree on about cold email outreach for a B2B SaaS?"
+- "Quick distill: cold email for a B2B SaaS" (Quick mode: 5 sources, one reply)
 
 The skill asks up to three short questions about your context, then answers in Full mode
 (two parts) or Quick mode (one response).
+
+[See a real run](https://github.com/shhadi/keenstone/blob/main/examples/distill/make-keenstone-popular.md): both parts of a Full-mode run on how to make
+Keenstone itself popular.
 
 ## What it runs and sends
 
